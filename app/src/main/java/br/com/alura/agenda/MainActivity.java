@@ -3,6 +3,7 @@ package br.com.alura.agenda;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,8 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
-
+//AppCompatActivity é uma boa pratica dentro do Android
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
         aluno.setText("Itamar Rocha");
         //Classe R faz o mapeamento de todos os recursos do projeto
         setContentView(R.layout.activity_main);
+        setTitle("Lista de Alunos");
         List<String> alunos = listAluno();
 //        TextView primeiroAluno = findViewById(R.id.textView);
 //        TextView segundoAluno = findViewById(R.id.textView2);
