@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alura.agenda.R;
+import br.com.alura.agenda.dao.AlunoDAO;
 
 //AppCompatActivity é uma boa pratica dentro do Android
 public class ListaAlunosActivity extends AppCompatActivity {
@@ -23,8 +24,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
         aluno.setText("Itamar Rocha");
         //Classe R faz o mapeamento de todos os recursos do projeto
         setContentView(R.layout.activity_lista_alunos);
+
+        AlunoDAO dao = new AlunoDAO();
         setTitle("Lista de Alunos");
-        List<String> alunos = listAluno();
+
 //        TextView primeiroAluno = findViewById(R.id.textView);
 //        TextView segundoAluno = findViewById(R.id.textView2);
 //        TextView terceiroAluno = findViewById(R.id.textView3);
@@ -35,7 +38,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_listview);
         //Adapter faz o vinculo entre o dado e uma view
         //ArrayApater implementa o Adapter
-        listaDeAlunos.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,alunos));
+        listaDeAlunos.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,dao.todos()));
 
         //ViewGroup
         //DSL
