@@ -33,11 +33,13 @@ public class formularioAlunoActivity extends AppCompatActivity {
         configuraBotaoSalvar();
         Intent dados = getIntent();
 
-        aluno = (Aluno) dados.getSerializableExtra("aluno");
+        if(dados.hasExtra("aluno")) {
+            aluno = (Aluno) dados.getSerializableExtra("aluno");
 
-        campoNome.setText(aluno.getNome());
-        campoEmail.setText(aluno.getEmail());
-        campoTelefone.setText(aluno.getTelefone());
+            campoNome.setText(aluno.getNome());
+            campoEmail.setText(aluno.getEmail());
+            campoTelefone.setText(aluno.getTelefone());
+        }
     }
 
     private void configuraBotaoSalvar() {
@@ -49,6 +51,7 @@ public class formularioAlunoActivity extends AppCompatActivity {
                // Aluno alunoCriado = preencherAluno();
                // salvar(alunoCriado);
                   preencherAluno();
+
                   dao.edita(aluno);
                   finish();
             }
