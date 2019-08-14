@@ -11,9 +11,13 @@ import br.com.alura.agenda.R;
 import br.com.alura.agenda.dao.AlunoDAO;
 import br.com.alura.agenda.model.Aluno;
 
+import static br.com.alura.agenda.ui.activity.ConstantesAcitivities.CHAVE_ALUNO;
+
+
 public class formularioAlunoActivity extends AppCompatActivity {
 
-    public static final String TITULO_APPBAR = "Novo aluno";
+    private static final String TITULO_APPBAR_NOVOALUNO = "Novo aluno";
+    private static final String TITULO_APPBAR_EDITAALUNO = "Edita Aluno";
 
     private EditText campoNome;
     private EditText campoTelefone;
@@ -25,21 +29,29 @@ public class formularioAlunoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
-        setTitle(TITULO_APPBAR);
         inicializacao();
         configuraBotaoSalvar();
+        carregaAluno();
+    }
+
+    private void carregaAluno() {
         Intent dados = getIntent();
 
-        if(dados.hasExtra("aluno")) {
-            aluno = (Aluno) dados.getSerializableExtra("aluno");
+        if(dados.hasExtra(CHAVE_ALUNO)) {
+            setTitle(TITULO_APPBAR_EDITAALUNO);
+            aluno = (Aluno) dados.getSerializableExtra(CHAVE_ALUNO);
+            preencheCampos();
 
-            campoNome.setText(aluno.getNome());
-            campoEmail.setText(aluno.getEmail());
-            campoTelefone.setText(aluno.getTelefone());
         }else{
-
+            setTitle(TITULO_APPBAR_NOVOALUNO);
             aluno = new Aluno();
         }
+    }
+
+    private void preencheCampos() {
+        campoNome.setText(aluno.getNome());
+        campoEmail.setText(aluno.getEmail());
+        campoTelefone.setText(aluno.getTelefone());
     }
 
     private void configuraBotaoSalvar() {
@@ -47,20 +59,21 @@ public class formularioAlunoActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               // Aluno alunoCriado = preencherAluno();
-               // salvar(alunoCriado);
-                  preencherAluno();
-                  if(aluno.temIdValido()){
-                      dao.edita(aluno);
-
-                  }
-                  else{
-                      dao.salva(aluno);
-                  }
-                  finish();
+                finalizaFormulario();
             }
         });
+    }
+
+    private void finalizaFormulario() {
+        preencherAluno();
+        if(aluno.temIdValido()){
+            dao.edita(aluno);
+
+        }
+        else{
+            dao.salva(aluno);
+        }
+        finish();
     }
 
     private void inicializacao() {
