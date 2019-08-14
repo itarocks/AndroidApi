@@ -56,4 +56,16 @@ public class AlunoDAO {
         return new ArrayList<>(alunos);
 
     }
+
+    public void remove(Aluno alunoEscolhido) {
+
+        Aluno alunoParaDeletar = buscaAlunoPorId(alunoEscolhido);
+
+        if(alunoParaDeletar != null){
+
+            alunos.remove(alunoParaDeletar);
+
+        }
+
+    }
 }

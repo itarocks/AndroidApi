@@ -5,6 +5,7 @@
  import android.support.annotation.Nullable;
  import android.support.design.widget.FloatingActionButton;
  import android.support.v7.app.AppCompatActivity;
+ import android.util.Log;
  import android.view.View;
  import android.widget.AdapterView;
  import android.widget.ArrayAdapter;
@@ -62,6 +63,19 @@ public class ListaAlunosActivity extends AppCompatActivity {
         final List<Aluno> alunos = dao.todos();
         configuraAdapter(listaDeAlunos, alunos);
         configuraListenerDeCliquePorItem(listaDeAlunos);
+        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Log.i("cliqueLongo",String.valueOf(position));
+                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
+                dao.remove(alunoEscolhido);
+                //return false não consome o evento inteiro
+                //true consome
+                return true;
+            }
+        });
+
     }
 
      private void configuraListenerDeCliquePorItem(ListView listaDeAlunos) {
