@@ -10,6 +10,10 @@ public class Aluno implements Serializable{
     private  String nome;
     private  String telefone;
 
+    public Aluno() {
+
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -56,5 +60,10 @@ public class Aluno implements Serializable{
 
     public int getId() {
         return id;
+    }
+
+    public boolean temIdValido() {
+
+        return id > 0;
     }
 }

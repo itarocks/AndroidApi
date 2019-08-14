@@ -2,13 +2,10 @@ package br.com.alura.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.io.Serializable;
 
 import br.com.alura.agenda.R;
 import br.com.alura.agenda.dao.AlunoDAO;
@@ -39,6 +36,9 @@ public class formularioAlunoActivity extends AppCompatActivity {
             campoNome.setText(aluno.getNome());
             campoEmail.setText(aluno.getEmail());
             campoTelefone.setText(aluno.getTelefone());
+        }else{
+
+            aluno = new Aluno();
         }
     }
 
@@ -51,8 +51,13 @@ public class formularioAlunoActivity extends AppCompatActivity {
                // Aluno alunoCriado = preencherAluno();
                // salvar(alunoCriado);
                   preencherAluno();
+                  if(aluno.temIdValido()){
+                      dao.edita(aluno);
 
-                  dao.edita(aluno);
+                  }
+                  else{
+                      dao.salva(aluno);
+                  }
                   finish();
             }
         });
