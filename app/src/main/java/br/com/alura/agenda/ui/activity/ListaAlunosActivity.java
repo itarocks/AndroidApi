@@ -35,24 +35,31 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
         configuraFabNovoAluno();
         configuraLista();
-        dao.salva(new Aluno("Itamar", "11993379121", "itamarrochaa@yahoo.com"));
-        dao.salva(new Aluno("Pedro", "11993379121", "itamarrochaa@yahoo.com"));
+
+        for (int i = 0 ; i < 10; i ++){
+            dao.salva(new Aluno("Itamar", "11993379121", "itamarrochaa@yahoo.com"));
+            dao.salva(new Aluno("Pedro", "11993379121", "itamarrochaa@yahoo.com"));
+        }
 
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.activity_lista_alunos_menus,menu);
+        getMenuInflater().inflate(R.menu.activity_lista_alunos_menus, menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
-        remove(alunoEscolhido);
-        return super.onContextItemSelected(item);
 
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.activity_lista_alunos_menu_remover) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+            remove(alunoEscolhido);
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void configuraFabNovoAluno() {
