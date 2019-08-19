@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class Aluno implements Serializable{
+public class Aluno implements Serializable {
 
     private int id = 0;
-    private  String nome;
-    private  String telefone;
+    private String nome;
+    private String telefone;
 
     public Aluno() {
 
@@ -35,14 +35,8 @@ public class Aluno implements Serializable{
         this.email = email;
     }
 
-    private  String email;
+    private String email;
 
-
-    @NonNull
-    @Override
-    public String toString() {
-        return nome;
-    }
 
     public String getNome() {
         return nome;
@@ -67,5 +61,11 @@ public class Aluno implements Serializable{
     public boolean temIdValido() {
 
         return id > 0;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome + " - " + telefone;
     }
 }
