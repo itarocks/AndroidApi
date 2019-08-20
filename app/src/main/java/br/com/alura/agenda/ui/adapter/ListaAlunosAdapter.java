@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import br.com.alura.agenda.R;
 import br.com.alura.agenda.model.Aluno;
 
 
+// Adapter Personalizado
 public class ListaAlunosAdapter extends BaseAdapter {
 
     private final List<Aluno> alunos = new ArrayList<>();
@@ -43,32 +42,35 @@ public class ListaAlunosAdapter extends BaseAdapter {
 
     @Override
     public View getView(int posicao, View view, ViewGroup viewGroup) {
-        View viewCriada = LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_aluno, viewGroup, false);
+        View viewCriada = criaView(viewGroup);
         Aluno alunoDevolvido = alunos.get(posicao);
-        TextView nomeAluno = viewCriada.findViewById(R.id.item_aluno_nome);
-        nomeAluno.setText(alunoDevolvido.getNome());
-        TextView telefoneAluno = viewCriada.findViewById(R.id.item_aluno_telefone);
-        telefoneAluno.setText(alunoDevolvido.getTelefone());
+        vincula(viewCriada, alunoDevolvido);
         return viewCriada;
     }
 
-    public void clear() {
-
-        alunos.clear();
-
+    private void vincula(View view, Aluno aluno) {
+        TextView nomeAluno = view.findViewById(R.id.item_aluno_nome);
+        nomeAluno.setText(aluno.getNome());
+        TextView telefoneAluno = view.findViewById(R.id.item_aluno_telefone);
+        telefoneAluno.setText(aluno.getTelefone());
     }
 
-    public void addAll(List<Aluno> alunos) {
+    private View criaView(ViewGroup viewGroup) {
+        return LayoutInflater
+                .from(context)
+                .inflate(R.layout.item_aluno, viewGroup, false);
+    }
 
+    public void atualiza(List<Aluno> alunos){
+        this.alunos.clear();
         this.alunos.addAll(alunos);
-
+        notifyDataSetChanged();
     }
+
 
     public void remove(Aluno aluno) {
 
         alunos.remove(aluno);
-
+        notifyDataSetChanged();
     }
 }
