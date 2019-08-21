@@ -1,9 +1,11 @@
 package br.com.alura.agenda.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraFabNovoAluno();
         configuraLista();
 
+
     }
 
     @Override
@@ -50,16 +53,36 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(final MenuItem item) {
 
         int itemId = item.getItemId();
 
         if (itemId == R.id.activity_lista_alunos_menu_remover) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
-            remove(alunoEscolhido);
+
+            confirmaRemocao(item);
+
         }
+
         return super.onContextItemSelected(item);
+    }
+
+    private void confirmaRemocao(final MenuItem item) {
+        new AlertDialog.
+                Builder(this)
+                .setTitle("Removendo o Aluno")
+                .setMessage("Tem certeza que quer remover o aluno")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+                        remove(alunoEscolhido);
+
+                    }
+                })
+                .setNegativeButton("Não",null)
+                .show();
     }
 
     private void configuraFabNovoAluno() {

@@ -6,6 +6,6 @@
         android:id="@+id/activity_formulario_aluno_menu_salvar"
 
         android:icon="@drawable/ic_action_salvar_aluno"
-        android:title="Salva o Aluno"
+        android:title="@string/salvar_aluno"
         app:showAsAction="always" />
 </menu>
