@@ -8,13 +8,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,7 +26,7 @@ import static br.com.alura.agenda.ui.activity.ConstantesAcitivities.CHAVE_ALUNO;
 //AppCompatActivity é uma boa pratica dentro do Androidfor
 public class ListaAlunosActivity extends AppCompatActivity {
 
-    public static final String TITULO_APPBAR = "Lista de Alunos";
+    private static final String TITULO_APPBAR = "Lista de Alunos";
     private final AlunoDAO dao = new AlunoDAO();
     private ListaAlunosAdapter adapter;
 
@@ -81,7 +77,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNegativeButton("Não",null)
+                .setNegativeButton("Não", null)
                 .show();
     }
 
@@ -107,7 +103,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void atualizaAluno() {
-       adapter.atualiza(dao.todos());
+        adapter.atualiza(dao.todos());
     }
 
     private void configuraLista() {
